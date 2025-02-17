@@ -1,0 +1,25 @@
+{% include "base/head.html" %}
+{%load static %}
+<div class="flex flex-row  h-screen overflow-hidden">
+
+    <div class=" bg-teal-900 ">
+        <!-- ========== Start aside navbar ========== -->
+        {% include "inc/nav.html" %}
+        <!-- ========== End aside navbar ========== -->
+    
+    </div>
+    <!-- ========== Start content of the body ========== -->
+    <div class="basis-5/6  overflow-auto bg-white">
+        {% block content %}
+    
+        {% endblock %}
+
+    </div>
+    <!-- ========== End content of the body ========== -->
+    
+   
+</div>
+
+
+
+{% include "base/base.html" %}

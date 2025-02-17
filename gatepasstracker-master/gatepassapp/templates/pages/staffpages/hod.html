@@ -1,0 +1,61 @@
+{% extends "inc/navbarcontent.html" %}
+
+{% block content %}
+{% if messages %}
+    <script>
+      {% for message in messages %}
+        alert("{{ message }}");
+      {% endfor %}
+    </script>
+{% endif %}
+
+<div>
+    {% if students %}
+        <!-- If students exist, show the table -->
+        <table class="table-auto w-full">
+            <thead>
+              <tr>
+                <th class="px-4 py-2">Name</th>
+                <th class="px-4 py-2">Roll Number</th>
+                <th class="px-4 py-2">Department</th>
+                <th class="px-4 py-2">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for student in students %}
+                  <tr class="text-center">
+                      <td class="border px-4 py-2">{{ student.Name }}</td>
+                      <td class="border px-4 py-2">{{ student.Rollnumber }}</td>
+                      <td class="border px-4 py-2">{{ student.Department }}</td>
+                      <td class="border px-4 py-2">
+                          <div class="flex flex-row justify-center space-x-2">
+                              <form method="post" action="{% url 'approve_studenthod' student.id %}">
+                                  {% csrf_token %}
+                                  <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                      Approve
+                                  </button>
+                              </form>
+      
+                              <form method="post" action="{% url 'rejection' student.id %}">
+                                  {% csrf_token %}
+                                  <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                                      Reject
+                                  </button>
+                              </form>
+                          </div>
+                      </td>
+                  </tr>
+              {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <!-- If no students, show this message -->
+        <div class="text-center py-4">
+            <h1>No data to display</h1>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
+
+
+
